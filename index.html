@@ -815,7 +815,8 @@
     </div>
     <div class="footer-credits">
         La Meteo del Pirineo Aragonés · Un proyecto de Ricardo Forcano<br>
-        Fuentes: AEMET OpenData · Open-Meteo · 3000 Ibones · A Lurte · Météo-France Montagne
+        Fuentes: AEMET OpenData · Open-Meteo · 3000 Ibones · A Lurte · Météo-France Montagne<br>
+        <span style="font-size:0.75rem;color:#8a9bb0;">Visitas: <span id="gc-counter"></span></span>    
     </div>
 </footer>
 
@@ -839,6 +840,18 @@
 <!-- GoatCounter analytics -->
 <script data-goatcounter="https://meteopirineo.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script>
+    var r = new XMLHttpRequest();
+    r.addEventListener('load', function() {
+        if (this.status === 200) {
+            var d = JSON.parse(this.responseText);
+            var el = document.getElementById('gc-counter');
+            if (el && d.count) el.textContent = parseInt(d.count).toLocaleString('es-ES');
+        }
+    });
+    r.open('GET', 'https://meteopirineo.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json');
+    r.send();
+</script>
     
 </body>
 </html>
