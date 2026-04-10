@@ -3,8 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Meteo del Pirineo Aragonés</title>
+    <title>La Meteo del Pirineo Aragonés — Boletín de montaña con previsión, nieve y aludes</title>
+    <meta name="description" content="Boletín meteorológico semanal del Pirineo Aragonés: previsión del tiempo, estado de la nieve, riesgo de aludes y rutas de esquí de montaña. Actualizado lunes y jueves.">
+    <meta name="author" content="La Meteo del Pirineo Aragonés">
+    <link rel="canonical" href="https://meteopirineo.es/">
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="La Meteo del Pirineo Aragonés">
+    <meta property="og:description" content="Boletín semanal de montaña: previsión meteorológica, estado de la nieve, riesgo de aludes y rutas de esquí de montaña en el Pirineo Aragonés.">
+    <meta property="og:url" content="https://meteopirineo.es/">
+    <meta property="og:image" content="https://meteopirineo.es/hero_pirineo.jpg">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="La Meteo del Pirineo Aragonés">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="La Meteo del Pirineo Aragonés">
+    <meta name="twitter:description" content="Boletín semanal de montaña: previsión, nieve, aludes y esquí de montaña en el Pirineo Aragonés.">
+    <meta name="twitter:image" content="https://meteopirineo.es/hero_pirineo.jpg">
+
+    <!-- Favicon (emoji montaña) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏔️</text></svg>">
+
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://camareando.com">
+    <link rel="dns-prefetch" href="https://meteopirineo.goatcounter.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -776,6 +802,32 @@
         .grade-2 .trend-badge { background: #f0e8a0; color: #7a6a00; }
         .grade-3 .trend-badge { background: #f0d8a0; color: #7a4f00; }
     </style>
+
+    <!-- Datos estructurados Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "La Meteo del Pirineo Aragonés",
+        "url": "https://meteopirineo.es/",
+        "description": "Boletín meteorológico semanal del Pirineo Aragonés: previsión del tiempo, estado de la nieve, riesgo de aludes y rutas de esquí de montaña.",
+        "inLanguage": "es",
+        "about": {
+            "@type": "Place",
+            "name": "Pirineo Aragonés",
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 42.65,
+                "longitude": -0.15
+            }
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "La Meteo del Pirineo Aragonés",
+            "url": "https://meteopirineo.es/"
+        }
+    }
+    </script>
 </head>
 <body>
 
