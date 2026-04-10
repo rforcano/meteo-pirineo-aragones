@@ -1251,7 +1251,7 @@
         if (this.status === 200) {
             var d = JSON.parse(this.responseText);
             var el = document.getElementById('gc-counter');
-            if (el && d.count) el.textContent = parseInt(d.count).toLocaleString('es-ES');
+            if (el && d.count) el.textContent = parseInt(String(d.count).replace(/[.,\s]/g, '')).toLocaleString('es-ES');
         }
     });
     r.open('GET', 'https://meteopirineo.goatcounter.com/counter/%2Fmeteo-pirineo-aragones%2F.json');
