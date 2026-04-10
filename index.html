@@ -1254,16 +1254,30 @@
 <script data-goatcounter="https://meteopirineo.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 <script>
-    var r = new XMLHttpRequest();
-    r.addEventListener('load', function() {
-        if (this.status === 200) {
-            var d = JSON.parse(this.responseText);
+    // Sumar visitas de la ruta antigua (/meteo-pirineo-aragones/) y la nueva (/)
+    var total = 0, loaded = 0;
+    function updateCounter() {
+        loaded++;
+        if (loaded === 2) {
             var el = document.getElementById('gc-counter');
-            if (el && d.count) el.textContent = parseInt(String(d.count).replace(/[.,\s]/g, '')).toLocaleString('es-ES');
+            if (el && total > 0) el.textContent = total.toLocaleString('es-ES');
         }
-    });
-    r.open('GET', 'https://meteopirineo.goatcounter.com/counter/%2Fmeteo-pirineo-aragones%2F.json');
-    r.send();
+    }
+    function fetchCount(path) {
+        var r = new XMLHttpRequest();
+        r.addEventListener('load', function() {
+            if (this.status === 200) {
+                var d = JSON.parse(this.responseText);
+                if (d.count) total += parseInt(String(d.count).replace(/[.,\s]/g, ''));
+            }
+            updateCounter();
+        });
+        r.addEventListener('error', updateCounter);
+        r.open('GET', 'https://meteopirineo.goatcounter.com/counter/' + path + '.json');
+        r.send();
+    }
+    fetchCount('%2Fmeteo-pirineo-aragones%2F');
+    fetchCount('%2F');
 </script>
 
 </body>
