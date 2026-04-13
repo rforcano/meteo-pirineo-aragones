@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="4a3UpxXaO70fM8Q3pgg5ueE8wn0Gku_9UljG2SUZ6GQ" />
+    <link rel="alternate" hreflang="es" href="https://meteopirineo.es/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Meteo del Pirineo Aragonés — Boletín de montaña con previsión, nieve y aludes</title>
+    <meta name="description" content="Boletín meteorológico semanal del Pirineo Aragonés: previsión del tiempo, estado de la nieve, riesgo de aludes y rutas de esquí de montaña. Actualizado lunes y jueves.">
+    <meta name="author" content="La Meteo del Pirineo Aragonés">
+    <link rel="canonical" href="https://meteopirineo.es/">
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="La Meteo del Pirineo Aragonés">
+    <meta property="og:description" content="Boletín semanal de montaña: previsión meteorológica, estado de la nieve, riesgo de aludes y rutas de esquí de montaña en el Pirineo Aragonés.">
+    <meta property="og:url" content="https://meteopirineo.es/">
+    <meta property="og:image" content="https://meteopirineo.es/hero_pirineo.jpg">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="La Meteo del Pirineo Aragonés">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="La Meteo del Pirineo Aragonés">
+    <meta name="twitter:description" content="Boletín semanal de montaña: previsión, nieve, aludes y esquí de montaña en el Pirineo Aragonés.">
+    <meta name="twitter:image" content="https://meteopirineo.es/hero_pirineo.jpg">
+
+    <!-- Favicon (emoji montaña) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏔️</text></svg>">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://camareando.com">
+    <link rel="dns-prefetch" href="https://meteopirineo.goatcounter.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #f8fafb;
+            --color-white: #ffffff;
+            --color-text: #1a2332;
+            --color-text-secondary: #374151;
+            --color-text-light: #6b7280;
+            --color-accent: #2b6cb0;
+            --color-accent-light: #ebf4ff;
+            --color-accent-dark: #1e4e8c;
+            --color-border: #e2e8f0;
+            --color-border-light: #edf2f7;
+            /* Escala aludes — tonos suaves */
+            --alud-1-bg: #edf7ed; --alud-1-border: #b8ddb8;
+            --alud-2-bg: #fefce8; --alud-2-border: #e8dfa0;
+            --alud-3-bg: #fef3e2; --alud-3-border: #e8c890;
+            --alud-45-bg: #fef0f0; --alud-45-border: #e8b0b0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --radius: 10px;
+            --radius-sm: 6px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.75;
+            font-size: 17px;
+        }
+
+        /* === HERO IMAGE === */
+        .hero-image {
+            width: 100%;
+            max-height: 340px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            object-position: center 40%;
+            display: block;
+        }
+
+        .hero-image .photo-credit {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.8);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* === HEADER === */
+        .site-header {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 50%, #3182ce 100%);
+            color: white;
+            text-align: center;
+            padding: 1.6rem 1.5rem;
+        }
+
+        .site-title {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* === NAV === */
+        .section-nav {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .nav-inner::-webkit-scrollbar { display: none; }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.75rem 0.7rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--color-accent);
+            border-bottom-color: var(--color-accent);
+        }
+
+        .nav-icon { font-size: 1.15rem; }
+
+        /* === MAIN === */
+        .main-content {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        /* === INTRO BANNER === */
+        .intro-banner {
+            background: var(--color-accent-light);
+            border-left: 4px solid var(--color-accent);
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.65;
+        }
+
+        /* === BULLETIN HEADER === */
+        .bulletin-header {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bulletin-date-badge {
+            display: inline-block;
+            background: var(--color-accent);
+            color: white;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 0.6rem;
+        }
+
+        .bulletin-number {
+            font-size: 0.82rem;
+            color: var(--color-text-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .bulletin-summary {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            border-top: 1px solid var(--color-border-light);
+            padding-top: 0.75rem;
+        }
+
+        .archive-link {
+            display: inline-block;
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .archive-link:hover { text-decoration: underline; }
+
+        /* === SECTIONS === */
+        .section {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            margin-bottom: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 1.5rem;
+            border-bottom: 1px solid var(--color-border-light);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .section-header:hover { background: var(--color-bg); }
+
+        .section-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+        .section-title {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text);
+            flex-grow: 1;
+        }
+
+        .section-toggle {
+            font-size: 1.2rem;
+            color: var(--color-text-light);
+            transition: transform 0.3s;
+        }
+
+        .section.collapsed .section-toggle { transform: rotate(-90deg); }
+        .section.collapsed .section-body { display: none; }
+
+        .section-body { padding: 1.25rem 1.5rem; }
+
+        .section-body p {
+            margin-bottom: 0.85rem;
+            color: var(--color-text-secondary);
+            font-size: 0.96rem;
+        }
+
+        .section-body p:last-child { margin-bottom: 0; }
+
+        /* === SUBSECTIONS === */
+        .subsection-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 1.25rem 0 0.6rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+
+        .subsection-title:first-child { margin-top: 0; }
+
+        /* === DAY FORECAST CARDS === */
+        .day-card {
+            background: var(--color-bg);
+            border-radius: var(--radius-sm);
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .day-card-alert {
+            background: #fff8f0;
+            border-left: 3px solid #f5a623;
+        }
+
+        .day-name {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--color-text);
+            margin-bottom: 0.3rem;
+        }
+
+        .day-name .day-badge-alert {
+            display: inline-block;
+            font-size: 0.72rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 10px;
+            margin-left: 0.4rem;
+            font-weight: 600;
+            background: #ffe0b2;
+            color: #8a5a00;
+        }
+
+        .day-desc {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.65;
+        }
+
+        /* === TABLE === */
+        .data-table-wrapper {
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+
+        .data-table th {
+            background: var(--color-accent);
+            color: white;
+            padding: 0.6rem 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: 0.55rem 0.75rem;
+            border-bottom: 1px solid var(--color-border-light);
+            white-space: nowrap;
+        }
+
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:nth-child(even) { background: var(--color-bg); }
+        .data-table tr:hover { background: var(--color-accent-light); }
+
+        /* === ZONE CARDS === */
+        .zone-card {
+            background: var(--color-bg);
+            border-radius: var(--radius-sm);
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.6rem;
+            border-left: 3px solid var(--color-accent);
+        }
+
+        .zone-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--color-text);
+            margin-bottom: 0.4rem;
+        }
+
+        .zone-detail {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        .zone-detail .data-value {
+            font-weight: 600;
+            color: var(--color-accent-dark);
+        }
+
+        /* === WEBCAM === */
+        .webcam-box {
+            border-radius: var(--radius-sm);
+            margin: 1rem 0;
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+        }
+
+        .webcam-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .webcam-caption {
+            padding: 0.6rem 1rem;
+            background: var(--color-bg);
+            font-size: 0.82rem;
+            color: var(--color-text-light);
+        }
+
+        .webcam-caption a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        /* === AVALANCHE === */
+        .avalanche-grade {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: var(--radius-sm);
+            padding: 0.5rem 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .avalanche-grade-1 { background: var(--alud-1-bg); border: 1px solid var(--alud-1-border); }
+        .avalanche-grade-2 { background: var(--alud-2-bg); border: 1px solid var(--alud-2-border); }
+        .avalanche-grade-3 { background: var(--alud-3-bg); border: 1px solid var(--alud-3-border); }
+        .avalanche-grade-45 { background: var(--alud-45-bg); border: 1px solid var(--alud-45-border); }
+
+        .grade-number {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--color-text);
+        }
+
+        .grade-number-1 { background: #c8e6c8; }
+        .grade-number-2 { background: #f0e8a0; }
+        .grade-number-3 { background: #f0d8a0; }
+        .grade-number-45 { background: #f0b8b8; }
+
+        .grade-text {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--color-text);
+        }
+
+        /* Alert boxes con escala aludes */
+        .alert-box {
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1rem;
+            margin: 0.85rem 0;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: var(--color-text);
+        }
+
+        .alert-alud-2 { background: var(--alud-2-bg); border-left: 3px solid var(--alud-2-border); }
+        .alert-alud-3 { background: var(--alud-3-bg); border-left: 3px solid var(--alud-3-border); }
+        .alert-alud-info { background: var(--alud-2-bg); border-left: 3px solid var(--alud-2-border); }
+
+        /* === SKIMO === */
+        .skimo-card {
+            background: var(--color-bg);
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.15rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .skimo-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--color-text);
+            margin-bottom: 0.15rem;
+        }
+
+        .skimo-meta {
+            font-size: 0.82rem;
+            color: var(--color-text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .skimo-desc {
+            font-size: 0.92rem;
+            color: var(--color-text-secondary);
+            line-height: 1.65;
+        }
+
+        .skimo-links {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .skimo-links a {
+            color: var(--color-accent);
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        .skimo-links a:hover { text-decoration: underline; }
+
+        /* === SOURCES === */
+        .sources {
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--color-border-light);
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+        }
+
+        .sources a { color: var(--color-accent); text-decoration: none; }
+
+        /* === FOOTER === */
+        .site-footer {
+            max-width: 820px;
+            margin: 2rem auto 0;
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+
+        .footer-next {
+            background: var(--color-accent-light);
+            border: 1px solid #c4dcf5;
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            font-size: 0.95rem;
+        }
+
+        .footer-next strong { color: var(--color-accent); }
+
+        .footer-disclaimer {
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+            line-height: 1.65;
+            max-width: 650px;
+            margin: 0 auto 1rem;
+        }
+
+        .footer-credits {
+            font-size: 0.78rem;
+            color: var(--color-text-light);
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .footer-credits a { color: var(--color-accent); text-decoration: none; }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 640px) {
+            .site-title { font-size: 1.4rem; }
+            .hero-image img { height: 220px; }
+            .site-header { padding: 1.2rem 1rem; }
+            .section-body { padding: 1rem; }
+            body { font-size: 16px; }
+
+            /* Nav: compacto en móvil — 4 primeras siempre visibles */
+            .nav-link {
+                padding: 0.65rem 0.55rem;
+                font-size: 0.86rem;
+                gap: 0.3rem;
+            }
+            .nav-icon { font-size: 1.08rem; }
+        }
+
+        /* === WEATHER TIMELINE === */
+        .weather-timeline {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem 1.1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+        .timeline-label {
+            font-size: 0.72rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.06em;
+            color: var(--color-text-light); margin-bottom: 0.7rem;
+        }
+        .timeline-strip {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.4rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tl-day {
+            border-radius: var(--radius-sm);
+            padding: 0.6rem 0.3rem 0.5rem;
+            text-align: center;
+            border: 1px solid var(--color-border);
+            background: #f8fafb;
+            min-width: 64px;
+        }
+        .tl-day.tl-today  { border-color: var(--color-accent); background: var(--color-accent-light); }
+        .tl-day.tl-alert   { background: #fff8f0; border-color: #f5a623; }
+        .tl-day.tl-temporal{ background: #fef0f0; border-color: #e8b0b0; }
+        .tl-day.tl-recover { background: #fffbeb; border-color: #e8dfa0; }
+        .tl-dayname { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--color-text-light); }
+        .tl-date    { font-size: 0.65rem; color: var(--color-text-light); margin-bottom: 0.25rem; }
+        .tl-icon    { font-size: 1.45rem; display: block; margin: 0.2rem 0; line-height: 1; }
+        .tl-temps   { font-size: 0.74rem; font-weight: 700; margin-top: 0.15rem; }
+        .tl-tmax    { color: #c53030; }
+        .tl-tmin    { color: #2b6cb0; }
+        .tl-sep     { color: #d1d5db; margin: 0 0.1rem; }
+        .tl-bar     { display: none; }
+        .tl-fill    { display: none; }
+        .tl-badge   { display: inline-block; font-size: 0.6rem; font-weight: 700; padding: 0.1rem 0.35rem; border-radius: 4px; }
+        .tl-badge.good     { background: #dcfce7; color: #166534; }
+        .tl-badge.alert    { background: #ffe0b2; color: #8a5a00; }
+        .tl-badge.temporal { background: #fde8e8; color: #9a3412; }
+        .tl-badge.recover  { background: #fef9c3; color: #713f12; }
+
+        /* === MEJOR ZONA SKIMO === */
+        .best-zone-card {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-left: 4px solid #166534;
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.15rem;
+            margin: 1rem 0;
+        }
+        .best-zone-eyebrow {
+            display: flex; align-items: center; gap: 0.4rem;
+            font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            color: #166534; margin-bottom: 0.35rem;
+        }
+        .best-zone-name {
+            font-weight: 700; font-size: 1rem; color: #14532d; margin-bottom: 0.4rem;
+        }
+        .best-zone-chips {
+            display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.5rem;
+        }
+        .best-zone-chip {
+            font-size: 0.74rem; font-weight: 600;
+            background: white; color: #166534;
+            border: 1px solid #86efac;
+            padding: 0.12rem 0.5rem; border-radius: 6px;
+        }
+        .best-zone-desc {
+            font-size: 0.85rem; color: #14532d; line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            .timeline-strip { grid-template-columns: repeat(6, minmax(62px, 1fr)); }
+        }
+
+        /* === CABECERAS DE SECCIÓN EN COLOR === */
+        #prevision .section-header { background: #1e4e8c; }
+        #nevadas   .section-header { background: #2563a8; }
+        #nieve     .section-header { background: #0e7490; }
+        #aludes    .section-header { background: #9a3412; }
+        #tendencia .section-header { background: #5b21b6; }
+        #skimo     .section-header { background: #166534; }
+        #archivo   .section-header { background: #374151; }
+
+        #prevision .section-header, #nevadas .section-header,
+        #nieve .section-header, #aludes .section-header,
+        #tendencia .section-header, #skimo .section-header,
+        #archivo .section-header {
+            border-bottom: none;
+        }
+        #prevision .section-header:hover { background: #265d9e; }
+        #nevadas   .section-header:hover { background: #2d6db8; }
+        #nieve     .section-header:hover { background: #1085a0; }
+        #aludes    .section-header:hover { background: #a83c18; }
+        #tendencia .section-header:hover { background: #6727c4; }
+        #skimo     .section-header:hover { background: #1a7a3e; }
+        #archivo   .section-header:hover { background: #414e5e; }
+
+        #prevision .section-title, #nevadas .section-title,
+        #nieve .section-title, #aludes .section-title,
+        #tendencia .section-title, #skimo .section-title,
+        #archivo .section-title { color: white; }
+
+        #prevision .section-toggle, #nevadas .section-toggle,
+        #nieve .section-toggle, #aludes .section-toggle,
+        #tendencia .section-toggle, #skimo .section-toggle,
+        #archivo .section-toggle { color: rgba(255,255,255,0.65); }
+
+        /* Ícono con fondo redondeado en cabeceras de color */
+        #prevision .section-icon, #nevadas .section-icon,
+        #nieve .section-icon, #aludes .section-icon,
+        #tendencia .section-icon, #skimo .section-icon,
+        #archivo .section-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            background: rgba(255,255,255,0.18);
+            border-radius: 8px;
+            font-size: 1.3rem;
+        }
+
+        /* === ZONA NIEVE — NUEVO DISEÑO (sección 3) === */
+        .zone-card-v2 {
+            display: grid;
+            grid-template-columns: 2.4rem 1fr;
+            gap: 0.75rem;
+            align-items: start;
+            background: var(--color-bg);
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1rem;
+            margin-bottom: 0.6rem;
+            border: 1px solid var(--color-border);
+        }
+        .zone-icon-v2 {
+            width: 2.4rem; height: 2.4rem;
+            background: #e0f2fe;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+        }
+        .zone-name-v2 {
+            font-weight: 700; font-size: 0.9rem;
+            color: var(--color-text); margin-bottom: 0.3rem;
+        }
+        .snow-chips {
+            display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.4rem;
+        }
+        .snow-chip {
+            font-size: 0.82rem; font-weight: 600;
+            background: #e0f2fe; color: #0e7490;
+            padding: 0.15rem 0.55rem; border-radius: 6px;
+        }
+        .snow-bar-wrap { margin-bottom: 0.4rem; }
+        .snow-bar-label {
+            font-size: 0.7rem; color: var(--color-text-light); margin-bottom: 0.2rem;
+        }
+        .snow-bar-track {
+            height: 5px; background: #dbeafe; border-radius: 3px; overflow: hidden;
+        }
+        .snow-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #0e7490);
+            border-radius: 3px;
+        }
+        .zone-detail-v2 {
+            font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.55;
+        }
+
+        /* === ALUDES — NUEVO DISEÑO (sección 4) === */
+        .avalanche-hero {
+            display: flex; gap: 1rem; align-items: center;
+            background: var(--alud-2-bg); border: 1px solid var(--alud-2-border);
+            border-radius: var(--radius-sm); padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .avalanche-big-badge {
+            width: 4rem; height: 4rem; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; font-weight: 900;
+            background: #f0e8a0; color: #7a6a00;
+            flex-shrink: 0; border: 3px solid var(--alud-2-border);
+        }
+        .avalanche-hero-title { font-weight: 700; font-size: 1rem; color: #7a6a00; }
+        .avalanche-hero-sub { font-size: 0.84rem; color: #92600a; margin-top: 0.15rem; }
+        .avalanche-scale {
+            display: flex; gap: 0.3rem; margin-top: 0.55rem;
+        }
+        .scale-dot {
+            height: 5px; width: 1.5rem; border-radius: 3px;
+        }
+        .scale-dot.s1 { background: #86efac; }
+        .scale-dot.s2 { background: #fde68a; }
+        .scale-dot.s3 { background: #fdba74; }
+        .scale-dot.s4 { background: #f87171; }
+        .scale-dot.s5 { background: #dc2626; }
+        .scale-dot.inactive { opacity: 0.22; }
+
+        .alud-problem-card {
+            display: flex; gap: 0.75rem; align-items: flex-start;
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1rem; margin-bottom: 0.6rem;
+        }
+        .alud-problem-icon {
+            font-size: 1.5rem; flex-shrink: 0;
+            width: 2.2rem; height: 2.2rem;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .alud-problem-name {
+            font-weight: 700; font-size: 0.88rem;
+            color: var(--color-text); margin-bottom: 0.2rem;
+        }
+        .alud-problem-desc {
+            font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.55;
+        }
+
+        .alud-trend-item {
+            display: flex; align-items: center; gap: 0.65rem;
+            border-radius: var(--radius-sm); padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem; font-size: 0.9rem; line-height: 1.55;
+            color: var(--color-text);
+        }
+        .alud-trend-item.grade-2 {
+            background: var(--alud-2-bg); border: 1px solid var(--alud-2-border);
+        }
+        .alud-trend-item.grade-3 {
+            background: var(--alud-3-bg); border: 1px solid var(--alud-3-border);
+        }
+        .trend-badge {
+            width: 1.9rem; height: 1.9rem; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.95rem; flex-shrink: 0;
+        }
+        .grade-2 .trend-badge { background: #f0e8a0; color: #7a6a00; }
+        .grade-3 .trend-badge { background: #f0d8a0; color: #7a4f00; }
+    </style>
+
+    <!-- Datos estructurados Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "La Meteo del Pirineo Aragonés",
+        "url": "https://meteopirineo.es/",
+        "description": "Boletín meteorológico semanal del Pirineo Aragonés: previsión del tiempo, estado de la nieve, riesgo de aludes y rutas de esquí de montaña.",
+        "inLanguage": "es",
+        "about": {
+            "@type": "Place",
+            "name": "Pirineo Aragonés",
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 42.65,
+                "longitude": -0.15
+            }
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "La Meteo del Pirineo Aragonés",
+            "url": "https://meteopirineo.es/"
+        }
+    }
+    </script>
+</head>
+<body>
+
+<!-- ===== HERO IMAGE ===== -->
+<div class="hero-image">
+    <img src="hero_pirineo.jpg" alt="Panorámica invernal del Pirineo Aragonés" onerror="this.parentElement.style.display='none'">
+    <span class="photo-credit">Foto: Ricardo Forcano</span>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+    <h1 class="site-title">La Meteo del Pirineo Aragonés</h1>
+    <div style="font-size:1.15rem;font-weight:400;opacity:0.8;margin-top:0.3rem;">www.meteopirineo.es</div>
+</header>
+
+<!-- ===== NAV ===== -->
+<nav class="section-nav">
+    <div class="nav-inner">
+        <a href="#prevision" class="nav-link"><span class="nav-icon">🌤️</span> Previsión</a>
+        <a href="#nevadas" class="nav-link"><span class="nav-icon">🌨️</span> Nevadas</a>
+        <a href="#nieve" class="nav-link"><span class="nav-icon">❄️</span> Nieve</a>
+        <a href="#aludes" class="nav-link"><span class="nav-icon">⚠️</span> Aludes</a>
+        <a href="#tendencia" class="nav-link"><span class="nav-icon">📈</span> Tendencia</a>
+        <a href="#skimo" class="nav-link"><span class="nav-icon">⛷️</span> Skimo</a>
+        <a href="#archivo" class="nav-link"><span class="nav-icon">📁</span> Archivo</a>
+    </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main class="main-content">
+
+    <!-- Intro -->
+    <div class="intro-banner">
+        Este blog sobre la meteo del Pirineo aragonés es un proyecto de Ricardo Forcano realizado con Claude Cowork como homenaje al gran trabajo realizado por Jorge García-Dihinx durante más de 20 años en su web <a href="https://lameteoqueviene.blogspot.com/" target="_blank" style="color:var(--color-accent);text-decoration:none;font-weight:500;">Lameteoqueviene</a>. Somos muchos los que echamos de menos no sólo a Jorge como gran persona y montañero que fue, sino también a su labor semanal con la meteo. Sin pretender reemplazar su trabajo (mucho más elaborado que este), este blog pretende servir de apoyo a las personas que salen a la montaña en el Pirineo aragonés y buscan una referencia sobre la meteo y el estado de la nieve.
+    </div>
+
+    <!-- Bulletin header -->
+    <div class="bulletin-header">
+        <span class="bulletin-date-badge">Jueves 9 de abril de 2026</span>
+        <div class="bulletin-number">Boletín nº 2</div>
+        <div class="bulletin-summary">
+            La semana sigue marcada por el contraste: días jueves y viernes estupendos para la montaña con temperaturas primaverales y nieve en excelente estado, antes de un episodio de inestabilidad el fin de semana. El sábado llegará un frente atlántico con precipitaciones y descenso de la cota de nieve hasta 1.800–2.000 m. El domingo será el día más perturbado, con posibles nevadas de 5 a 15 cm por encima de 2.000 m y viento fuerte en cotas altas.
+        </div>
+        <a href="#archivo" class="archive-link">📁 Ver boletines anteriores</a>
+    </div>
+
+    <!-- WEATHER TIMELINE -->
+    <div class="weather-timeline">
+        <div class="timeline-label">🗓 Evolución del tiempo — 6 días</div>
+        <div class="timeline-strip">
+            <div class="tl-day tl-today">
+                <div class="tl-dayname">Jue</div>
+                <div class="tl-date">9 abr</div>
+                <span class="tl-icon">☀️</span>
+                <div class="tl-temps"><span class="tl-tmax">17°</span><span class="tl-sep">/</span><span class="tl-tmin">9°</span></div>
+                <div class="tl-bar"><div class="tl-fill rain" style="width:0%"></div></div>
+                <span class="tl-badge good">Hoy ✓</span>
+            </div>
+            <div class="tl-day">
+                <div class="tl-dayname">Vie</div>
+                <div class="tl-date">10 abr</div>
+                <span class="tl-icon">🌤️</span>
+                <div class="tl-temps"><span class="tl-tmax">19°</span><span class="tl-sep">/</span><span class="tl-tmin">9°</span></div>
+                <div class="tl-bar"><div class="tl-fill rain" style="width:0%"></div></div>
+                <span class="tl-badge good">Bueno</span>
+            </div>
+            <div class="tl-day tl-alert">
+                <div class="tl-dayname">Sáb</div>
+                <div class="tl-date">11 abr</div>
+                <span class="tl-icon">🌧️</span>
+                <div class="tl-temps"><span class="tl-tmax">15°</span><span class="tl-sep">/</span><span class="tl-tmin">6°</span></div>
+                <div class="tl-bar"><div class="tl-fill rain" style="width:25%"></div></div>
+                <span class="tl-badge alert">Cambio</span>
+            </div>
+            <div class="tl-day tl-temporal">
+                <div class="tl-dayname">Dom</div>
+                <div class="tl-date">12 abr</div>
+                <span class="tl-icon">❄️</span>
+                <div class="tl-temps"><span class="tl-tmax">7°</span><span class="tl-sep">/</span><span class="tl-tmin">3°</span></div>
+                <div class="tl-bar"><div class="tl-fill snow" style="width:85%"></div></div>
+                <span class="tl-badge temporal">Temporal</span>
+            </div>
+            <div class="tl-day tl-recover">
+                <div class="tl-dayname">Lun</div>
+                <div class="tl-date">13 abr</div>
+                <span class="tl-icon">🌦️</span>
+                <div class="tl-temps"><span class="tl-tmax">11°</span><span class="tl-sep">/</span><span class="tl-tmin">2°</span></div>
+                <div class="tl-bar"><div class="tl-fill rain" style="width:18%"></div></div>
+                <span class="tl-badge recover">Mejora</span>
+            </div>
+            <div class="tl-day">
+                <div class="tl-dayname">Mar</div>
+                <div class="tl-date">14 abr</div>
+                <span class="tl-icon">🌤️</span>
+                <div class="tl-temps"><span class="tl-tmax">13°</span><span class="tl-sep">/</span><span class="tl-tmin">5°</span></div>
+                <div class="tl-bar"><div class="tl-fill rain" style="width:0%"></div></div>
+                <span class="tl-badge good">Estable</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRÓXIMA ACTUALIZACIÓN -->
+    <div class="footer-next">
+        Próxima actualización: <strong>lunes 13 de abril de 2026</strong><br>
+        <span style="font-size:0.9rem;font-weight:400;color:var(--color-text-light);">Se emiten nuevos boletines los lunes y jueves de cada semana</span>
+    </div>
+
+    <!-- 1. PREVISIÓN -->
+    <section class="section" id="prevision">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🌤️</span>
+            <h2 class="section-title">1. Previsión meteorológica</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-body">
+            <h3 class="subsection-title">Situación atmosférica</h3>
+            <p>Alta presión residual sobre el Mediterráneo occidental mantiene el tiempo estable y cálido sobre el Pirineo Aragonés. La isoterma de 0°C se sitúa en torno a 2.800–3.000 m. No obstante, una vaguada atlántica profunda se acerca por el oeste: llegará al Pirineo a partir de la noche del viernes, produciendo un cambio brusco el sábado 11 y, especialmente, el domingo 12, con precipitaciones y descenso térmico notable. Después del frente, retorno progresivo a la estabilidad desde el lunes.</p>
+
+            <div class="day-card">
+                <div class="day-name">Jueves 9 — Hoy</div>
+                <div class="day-desc">Poco nuboso o despejado con alguna nube de tipo alto que no afectará a las vistas. Temperatura muy suave: máximas de 17°C en Canfranc (1.160 m), 15°C en Formigal (2.000 m), 20°C en Bielsa (990 m) y unos 10°C en Góriz (2.215 m). Heladas débiles sólo por encima de 3.200 m. Viento flojo variable, con brisas de valle. Isoterma 0°C entorno a 2.800–3.000 m. Excelentes condiciones para actividades en montaña.</div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-name">Viernes 10 — Último día estable</div>
+                <div class="day-desc">Día soleado pero con nubes altas en aumento progresivo de oeste a este, anunciando el frente. Temperaturas similares o algo más bajas: máx. 19°C en Canfranc, 17°C en Formigal, 20°C en Bielsa. A última hora, en el extremo occidental (Ansó, Hecho, Canfranc), puede aparecer nubosidad media que tape el sol. Isoterma 0°C a unos 2.800–3.000 m. Aún buenas condiciones, aunque conviene regresar temprano. Posible aumento del viento de componente sur a lo largo del día.</div>
+            </div>
+
+            <div class="day-card day-card-alert">
+                <div class="day-name">Sábado 11 <span class="day-badge-alert">CAMBIO DE TIEMPO</span></div>
+                <div class="day-desc">Llegada del frente atlántico. Cielos muy nubosos desde primera hora, con precipitaciones que comenzarán en la vertiente norte (Ossau, Aspe) durante la madrugada y se extenderán al conjunto del Pirineo aragonés a lo largo de la mañana. Cota de nieve bajando rápidamente desde 2.400 m hasta 1.800–2.000 m a última hora. Acumulaciones estimadas de nieve nueva: 2–4 cm a 2.000 m (Formigal), 4–6 cm a 2.200 m (Góriz). Viento en fuerte aumento de componente noroeste, con rachas de hasta 60 km/h en cumbres. Temperaturas en descenso: máx. 15°C en Canfranc, 7–8°C en Formigal, 8°C en Góriz. Desaconsejadas las ascensiones en cotas altas a partir del mediodía.</div>
+            </div>
+
+            <div class="day-card day-card-alert">
+                <div class="day-name">Domingo 12 <span class="day-badge-alert">TEMPORAL</span></div>
+                <div class="day-desc">Día más adverso del episodio. Precipitaciones persistentes con cota de nieve en 1.500–1.800 m. Nevadas intensas por encima de 2.000 m: acumulados de 5–10 cm en Formigal/Panticosa, 5–8 cm en Góriz/Ordesa y hasta 10–15 cm en cumbres de la alta montaña (Aneto, Posets, Vignemale). Viento muy fuerte del noroeste, rachas de hasta 80–90 km/h en cumbres (Formigal-Sarrios ~60 km/h según modelos). Máximas 7°C en Canfranc, 1°C en Góriz, -4°C en Aneto. Isoterma 0°C desplomándose hasta 1.500–1.800 m. Actividades en montaña completamente desaconsejadas.</div>
+            </div>
+
+            <h3 class="subsection-title">Previsión por zonas — temperaturas máx/mín (°C)</h3>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Zona / Altitud</th>
+                            <th>Jue 9</th>
+                            <th>Vie 10</th>
+                            <th>Sáb 11</th>
+                            <th>Dom 12</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Canfranc (1.160 m)</td><td>17 / 9°C ☀️</td><td>19 / 9°C ⛅</td><td>15 / 6°C ☁️🌧</td><td>7 / 3°C ❄️</td></tr>
+                        <tr><td>Formigal (2.000 m)</td><td>15 / 3°C ☀️</td><td>17 / 4°C ⛅</td><td>8 / 2°C 🌨</td><td>7 / 0°C ❄️🌨</td></tr>
+                        <tr><td>Góriz (2.215 m)</td><td>10 / −1°C ☀️</td><td>10 / −1°C ⛅</td><td>8 / −2°C 🌨</td><td>1 / −3°C ❄️🌨</td></tr>
+                        <tr><td>Bielsa (990 m)</td><td>20 / 7°C ☀️</td><td>20 / 8°C ⛅</td><td>19 / 10°C 🌧</td><td>12 / 5°C 🌧</td></tr>
+                        <tr><td>Aneto (3.404 m)</td><td>0 / −10°C ☀️</td><td>1 / −9°C ⛅</td><td>1 / −11°C ❄️</td><td>−4 / −10°C ❄️</td></tr>
+                        <tr><td>Isoterma 0°C</td><td>~2.900 m</td><td>~2.800 m</td><td>~2.000 m ↘</td><td>~1.600 m ↘↘</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sources">Fuentes: AEMET Predicción de Montaña Pirineo Aragonés (arn1, 08/04/2026), Open-Meteo (modelos ECMWF/Météo-France), datos estaciones AEMET red Nivomet</div>
+        </div>
+    </section>
+
+    <!-- 2. NEVADAS -->
+    <section class="section" id="nevadas">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🌨️</span>
+            <h2 class="section-title">2. Nevadas de la última semana</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-body">
+            <p><strong>La última semana ha estado dominada por la estabilidad anticiclónica, sin precipitaciones destacables en el Pirineo Aragonés desde el pasado jueves 2 de abril.</strong> Las estaciones de la red AEMET-Nivomet confirman ausencia total de nieve nueva en todas las cotas. La transformación primaveral es muy avanzada: Formigal-Sarrios (1.800 m) registró máximas de 14°C y mínimas de 8°C entre el 6 y el 8 de abril; La Renclusa (2.140 m), máximas de 11°C; Góriz (2.195 m), máximas de 14°C.</p>
+
+            <p>A pesar de ello, el manto se mantiene en cotas altas gracias a la excepcional acumulación de la temporada 2025–2026. El episodio de este fin de semana (sábado 11–domingo 12) aportará nueva nieve: entre 5 y 15 cm por encima de 2.000 m según la zona.</p>
+
+            <div class="sources">Fuentes: AEMET red Nivomet, estaciones Formigal-Sarrios, Panticosa-Petrosos, La Renclusa, Góriz (datos 06–08/04/2026)</div>
+        </div>
+    </section>
+
+    <!-- 3. NIEVE -->
+    <section class="section" id="nieve">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">❄️</span>
+            <h2 class="section-title">3. Estado actual de la nieve</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-body">
+            <p><strong>La innivación sigue siendo excepcional en toda la cordillera, muy por encima de la media histórica en todas las cotas.</strong> La transformación primaveral está avanzada: costra firme por las mañanas, blanda en solanas a partir del mediodía. El episodio del fin de semana aportará 5–15 cm nuevos por encima de 2.000 m.</p>
+
+            <h3 class="subsection-title">Espesores y cotas por zonas</h3>
+
+            <div class="zone-card-v2">
+                <div class="zone-icon-v2">🏔️</div>
+                <div>
+                    <div class="zone-name-v2">1. Valle de Canfranc / Collarada / Aspe</div>
+                    <div class="snow-chips">
+                        <span class="snow-chip">160–180 cm a 2.200 m (dato estimado)</span>
+                        <span class="snow-chip">Esquiable ↖ desde 1.700 m</span>
+                    </div>
+                    <div class="snow-bar-wrap">
+                        <div class="snow-bar-label">Innivación relativa al máximo de la temporada (%)</div>
+                        <div class="snow-bar-track"><div class="snow-bar-fill" style="width:72%"></div></div>
+                    </div>
+                    <div class="zone-detail-v2">Collarada–Ip con manto continuo desde 1.800 m en umbrías. Corredores del Aspe (Estanés, Bisaurín) en buenas condiciones.</div>
+                </div>
+            </div>
+
+            <div class="zone-card-v2">
+                <div class="zone-icon-v2">⛰️</div>
+                <div>
+                    <div class="zone-name-v2">2. Valle de Tena / Panticosa</div>
+                    <div class="snow-chips">
+                        <span class="snow-chip">190 cm a 2.200 m (dato directo de Bachimaña)</span>
+                        <span class="snow-chip">Esquiable ↖ desde 1.500 m</span>
+                    </div>
+                    <div class="snow-bar-wrap">
+                        <div class="snow-bar-label">Innivación relativa al máximo de la temporada (%)</div>
+                        <div class="snow-bar-track"><div class="snow-bar-fill" style="width:86%"></div></div>
+                    </div>
+                    <div class="zone-detail-v2">Portalet manto desde 1.500 m (norte). Circos de Pecico y Garmo Negro en excelente estado.</div>
+                </div>
+            </div>
+
+            <div class="zone-card-v2">
+                <div class="zone-icon-v2">🗻</div>
+                <div>
+                    <div class="zone-name-v2">3. Tendeñera y Partacua</div>
+                    <div class="snow-chips">
+                        <span class="snow-chip">100–140 cm a 2.200 m (dato estimado)</span>
+                        <span class="snow-chip">Esquiable ↖ desde 1.600 m</span>
+                    </div>
+                    <div class="snow-bar-wrap">
+                        <div class="snow-bar-label">Innivación relativa al máximo de la temporada (%)</div>
+                        <div class="snow-bar-track"><div class="snow-bar-fill" style="width:55%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="zone-card-v2">
+                <div class="zone-icon-v2">⛰️</div>
+                <div>
+                    <div class="zone-name-v2">4. Ordesa / Monte Perdido / Pineta (Bielsa)</div>
+                    <div class="snow-chips">
+                        <span class="snow-chip">68 cm a 2.215 m (dato directo de Góriz)</span>
+                        <span class="snow-chip">Esquiable ↖ desde 1.800 m</span>
+                    </div>
+                    <div class="snow-bar-wrap">
+                        <div class="snow-bar-label">Innivación relativa al máximo de la temporada (%)</div>
+                        <div class="snow-bar-track"><div class="snow-bar-fill" style="width:30%"></div></div>
+                    </div>
+                    <div class="zone-detail-v2">Pineta excelente desde 1.700 m en umbrías. Canales del Cilindro y Marboré en muy buen estado. Góriz: máx. 14°C el 8 de abril.</div>
+                </div>
+            </div>
+
+            <div class="zone-card-v2">
+                <div class="zone-icon-v2">🗻</div>
+                <div>
+                    <div class="zone-name-v2">5. Valle de Benasque / Maladetas / Posets</div>
+                    <div class="snow-chips">
+                        <span class="snow-chip">~80–100 cm a 1.890 m (dato estimado)</span>
+                        <span class="snow-chip">220–260 cm a 2.500 m (dato estimado)</span>
+                        <span class="snow-chip">Esquiable ↖ desde 1.800 m</span>
+                    </div>
+                    <div class="snow-bar-wrap">
+                        <div class="snow-bar-label">Innivación relativa al máximo de la temporada (%)</div>
+                        <div class="snow-bar-track"><div class="snow-bar-fill" style="width:95%"></div></div>
+                    </div>
+                    <div class="zone-detail-v2">Condiciones excepcionales en glaciares. La Renclusa (2.140 m) con manto continuo bien consolidado.</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Imagen del manto nival — Ascensión a Monte Perdido desde Góriz</h3>
+            <div class="webcam-box">
+                <img src="https://camareando.com/var/images/ordesa-ascmonteperdido/last.jpg" alt="Webcam Monte Perdido desde Ordesa" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div style="background:linear-gradient(135deg,#b0cde0 0%,#dce8f0 40%,#f0f4f8 100%);height:220px;display:none;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;">
+                    <span style="font-size:2.5rem;">🏔️</span>
+                    <span style="font-size:0.9rem;font-weight:600;color:#2b6cb0;">Webcam no disponible temporalmente</span>
+                    <a href="https://camareando.com/webcam/ordesa-ascmonteperdido" target="_blank" style="font-size:0.82rem;color:#2b6cb0;text-decoration:none;margin-top:0.25rem;padding:0.3rem 0.8rem;border:1px solid #2b6cb0;border-radius:20px;">Ver imagen en directo ↗</a>
+                </div>
+                <div class="webcam-caption">
+                    Monte Perdido (3.355 m) visto desde el valle de Ordesa. Imagen en directo vía <a href="https://camareando.com/webcam/ordesa-ascmonteperdido" target="_blank">camareando.com</a>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Tipo de nieve</h3>
+            <p>Nieve de primavera en todas las cotas. Costra firme (firn) por las mañanas, portante con esquís o crampones. La transformación empieza sobre las 9–10h en laderas este, las 11–12h en sur, y más tarde en umbrías. En solanas medias (1.600–1.800 m) la nieve puede estar blanda antes del mediodía.</p>
+
+            <h3 class="subsection-title">Previsión de evolución</h3>
+            <p>Jueves y viernes continúa la transformación primaveral sin aportes. <strong>A partir del sábado</strong>, las nevadas por encima de 1.800–2.000 m aportarán 5–15 cm nuevos sobre el manto primaveral ya transformado. Nieve nueva sobre costra puede crear condiciones de alud el domingo y lunes.</p>
+
+            <!-- MEJOR ZONA PARA SKIMO -->
+            <div class="best-zone-card">
+                <div class="best-zone-eyebrow">⭐ Zona recomendada · Jue 9 y Vie 10 abril</div>
+                <div class="best-zone-name">Valle de Tena / Panticosa</div>
+                <div class="best-zone-chips">
+                    <span class="best-zone-chip">190 cm a 2.200 m</span>
+                    <span class="best-zone-chip">Esquiable ↖ desde 1.500 m</span>
+                    <span class="best-zone-chip">Firn excelente</span>
+                </div>
+                <div class="best-zone-desc">El Valle de Tena acumula los mejores espesores del Pirineo occidental esta semana. El firn matutino da condiciones óptimas en todas las orientaciones hasta las 11–12 h. Antes de la llegada del frente del sábado, quedan dos días de condiciones primaverales excelentes: costra portante, cielos despejados y acceso fácil desde Formigal y Panticosa. Aprovechar el jueves y el viernes —el domingo la nieve nueva sobre costra requerirá precaución ante posibles aludes.</div>
+            </div>
+
+            <div class="sources">Fuentes: Boletín Nivológico 3000 Ibones (06/04/2026), AEMET red Nivomet Pineta, Bachimaña, La Renclusa, Góriz, Estós (08/04/2026)</div>
+        </div>
+    </section>
+
+    <!-- 4. ALUDES -->
+    <section class="section" id="aludes">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">⚠️</span>
+            <h2 class="section-title">4. Riesgo de aludes</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-body">
+
+            <div class="avalanche-hero">
+                <div class="avalanche-big-badge">2</div>
+                <div>
+                    <div class="avalanche-hero-title">Peligro Limitado</div>
+                    <div class="avalanche-hero-sub">Válido hoy jueves y mañana viernes · A Lurte + Météo-France</div>
+                    <div class="avalanche-scale">
+                        <div class="scale-dot s1 inactive"></div>
+                        <div class="scale-dot s2"></div>
+                        <div class="scale-dot s3 inactive"></div>
+                        <div class="scale-dot s4 inactive"></div>
+                        <div class="scale-dot s5 inactive"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Posibles aludes (jueves–viernes)</h3>
+
+            <div class="alud-problem-card">
+                <div class="alud-problem-icon">💧</div>
+                <div>
+                    <div class="alud-problem-name">Nieve húmeda — todas las cotas y orientaciones</div>
+                    <div class="alud-problem-desc">Principal problema. Salida puntual, tamaño pequeño a localmente mediano, en laderas de solana &gt;35° a partir de las 10–11h. Más frecuente entre 1.800–2.400 m. Coladas espontáneas observadas en orientación sur sobre 2.300–2.600 m en Ossau y Tena.</div>
+                </div>
+            </div>
+
+            <div class="alud-problem-card">
+                <div class="alud-problem-icon">💨</div>
+                <div>
+                    <div class="alud-problem-name">Placas de viento residuales — umbrías &gt; 2.200 m</div>
+                    <div class="alud-problem-desc">Heredadas del episodio de norte de finales de marzo. Tamaño pequeño a localmente mediano. Localizadas bajo crestas, inflexiones del terreno y pasos de collados. Probabilidad de activación 30–40% y en progresiva estabilización.</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Aludes observados — Valle de Ossau–Tena, 6–8 de abril</h3>
+            <p>2 aludes naturales de placa (tamaño mediano-grande) en orientación sur sobre 2.300–2.400 m en el Valle de Ossau. 2 aludes de salida puntual (tamaño mediano) en orientación sur sobre 2.600 m en la zona del Tena. Coladas de nieve húmeda en las laderas de solana del Cilindro (Góriz).</p>
+
+            <h3 class="subsection-title">Tendencia próximos días</h3>
+
+            <div class="alud-trend-item grade-2">
+                <div class="trend-badge">2</div>
+                <div><strong>Jue–Vie:</strong> Situación estable. Solo precaución con nieve húmeda en solanas durante las horas centrales del día. Las placas residuales siguen perdiendo reactividad.</div>
+            </div>
+            <div class="alud-trend-item grade-3">
+                <div class="trend-badge">3</div>
+                <div><strong>Sábado:</strong> Con la llegada del frente, el peligro podría subir a <strong>grado 3 (Notable)</strong> por encima de 2.000 m. Nieve nueva sobre manto primaveral crea una interfaz problemática, especialmente en umbrías y noreste.</div>
+            </div>
+            <div class="alud-trend-item grade-3">
+                <div class="trend-badge">3</div>
+                <div><strong>Dom–Lun:</strong> Peligro <strong>grado 3 (Notable)</strong> probable, con aludes de placa espontáneos en cotas altas. Nieve con viento favorecerá nuevas placas en todas las orientaciones &gt;2.000–2.200 m. Desaconsejada la montaña alta.</div>
+            </div>
+
+            <div class="sources">Fuentes: BPA A Lurte Valle de Canfranc (03/04/2026), Boletín Nivológico 3000 Ibones (06/04/2026), Météo-France tendances Pyrénées</div>
+        </div>
+    </section>
+
+    <!-- 5. TENDENCIA -->
+    <section class="section" id="tendencia">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">📈</span>
+            <h2 class="section-title">5. Tendencia a medio plazo (5-7 días)</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-body">
+            <p><strong>Lunes 13 de abril:</strong> Inicio de la recuperación tras el temporal del fin de semana. Las precipitaciones irán remitiendo de oeste a este durante la mañana. Cielos nubosos con claros en aumento por la tarde. Todavía posibles chubascos residuales en el extremo oriental (Benasque, Ribagorza). Temperaturas bajas, máximas de 6–8°C en Formigal. Manto nival reforzado con 5–15 cm de nieve nueva a 2.000 m, lo que elevará el peligro de aludes. Desaconsejada la alta montaña.</p>
+
+            <p><strong>Martes 14 y semana del 13–17 de abril:</strong> Según Météo-France, retorno progresivo a condiciones más estables con temperaturas ligeramente superiores a la media para la época. El patrón anticíclico podría restablecerse hacia el miércoles–jueves. Las temperaturas subirán de nuevo, favoreciendo una segunda fase de transformación primaveral del manto tras las nevadas del fin de semana. La fiabilidad de esta tendencia es media para la primera mitad de semana y baja para la segunda.</p>
+
+            <p><strong>En resumen:</strong> el episodio de este fin de semana, aunque de intensidad moderada-alta, no cambia el carácter excepcional de la temporada. La nieve nueva reforzará el manto y abrirá una nueva ventana para el esquí de primavera a partir del martes–miércoles de la semana que viene, una vez el nuevo manto se consolide.</p>
+
+            <p><strong>Fiabilidad:</strong> Alta para el cambio de tiempo del sábado–domingo (episodio ya bien marcado en todos los modelos). Media para el lunes–martes. Baja para el resto de la semana siguiente.</p>
+
+            <div class="sources">Fuentes: Météo-France tendances Pyrénées, Open-Meteo (modelos ECMWF/Météo-France 7 días)</div>
+        </div>
+    </section>
+
+    <!-- 6. SKIMO -->
+    <section class="section" id="skimo">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">⛷️</span>
+            <h2 class="section-title">6. Actividades de esquí de montaña</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-body">
+            <div style="border:1px solid var(--color-border-light); border-radius:var(--radius-sm); padding:1.15rem; margin-bottom:1.25rem; background:var(--color-white);">
+                <h3 class="subsection-title" style="margin-top:0;">Actividad reciente en el Pirineo aragonés</h3>
+                <p style="font-size:0.88rem;color:var(--color-text-light);margin-bottom:1rem;">Propuestas para los próximos días de buen tiempo (jueves 9 y viernes 10). Condiciones óptimas para nieve de primavera: salida antes de las 7h para aprovechar la costra matinal.</p>
+
+                <div class="skimo-card">
+                    <div class="skimo-title">Vértice de Anayet (2.555 m) — Barranco de Culivillas desde Astún</div>
+                    <div class="skimo-meta">Esquí de montaña · Valle de Tena / Astún · 2.555 m · Desnivel: ~900 m</div>
+                    <div class="skimo-desc">
+                        Ascensión con esquís desde Astún a través del barranco de Culivillas hasta la meseta del Lago de Anayet, con llegada a la cima del Vértice. Costra matutina excelente en las palas orientadas a este. Descenso por el sector de la Glera con nieve en firn. Acceso fácil desde el parking de Astún. Ruta bien descrita en crónica reciente de finales de marzo.
+                    </div>
+                    <div class="skimo-links">
+                        <a href="https://pirineodeluis.blogspot.com" target="_blank">📖 Crónica — pirineodeluis.blogspot.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border:1px solid var(--color-border-light); border-left:3px solid #166534; border-radius:var(--radius-sm); padding:1.15rem; background:var(--color-white);">
+                <h3 class="subsection-title" style="margin-top:0;">Rutas con esquís por el Pirineo aragonés — Jorge García-Dihinx</h3>
+                <p style="font-size:0.88rem;color:var(--color-text-secondary);margin-bottom:1rem;">La colección de referencia sobre esquí de montaña en el Pirineo aragonés. Más de 260 rutas organizadas por valles, con fotografías, mapas 1:25.000 y descripciones detalladas de cada itinerario. Una obra imprescindible de Jorge García-Dihinx, creador de <em>Lameteoqueviene</em>.</p>
+                <div class="skimo-card">
+                    <div class="skimo-title">Tomo I — Desde Linza al Portalet</div>
+                    <div class="skimo-meta">67 recorridos · Valles de Ansó, Hecho, Aragüés, Aísa, Canfranc, Astún y Portalet</div>
+                    <div class="skimo-links">
+                        <a href="https://www.amazon.es/Esqu%C3%ADs-Pirineo-Aragon%C3%A9s-Recorridos-Portalet/dp/8483214016" target="_blank">📖 Ver en Amazon</a>
+                    </div>
+                </div>
+                <div class="skimo-card">
+                    <div class="skimo-title">Tomo II — Desde Sallent a Ordesa</div>
+                    <div class="skimo-meta">80 recorridos · Sallent de Gállego, Respomuso, Panticosa, Bujaruelo, Gavarnie y Ordesa-Monte Perdido</div>
+                    <div class="skimo-links">
+                        <a href="https://www.amazon.es/RUTAS-ESQU%C3%8DS-PIRINEO-ARAGON%C3%89S-TOMO/dp/8483214369" target="_blank">📖 Ver en Amazon</a>
+                    </div>
+                </div>
+                <div class="skimo-card">
+                    <div class="skimo-title">Tomo III — Desde Bielsa a Benasque</div>
+                    <div class="skimo-meta">64 recorridos · Bielsa, Chistau, macizo del Posets, Eriste, Estós, Literola y Benasque</div>
+                    <div class="skimo-links">
+                        <a href="https://www.amazon.es/ESQU%C3%8DS-PIRINEO-ARAGON%C3%89S-RECORRIDOS-BENASQUE/dp/8483214768" target="_blank">📖 Ver en Amazon</a>
+                    </div>
+                </div>
+                <div class="skimo-card">
+                    <div class="skimo-title">Tomo IV — Desde Benasque al Túnel de Vielha</div>
+                    <div class="skimo-meta">55 recorridos · Benasque, Aneto-Maladeta, Ardonés, Llauset-Barrabés y Noguera Ribagorzana</div>
+                    <div class="skimo-links">
+                        <a href="https://www.amazon.es/ESQU%C3%8DS-PIRINEO-ARAGON%C3%89S-RECORRIDOS-BENASQUE/dp/8483214776" target="_blank">📖 Ver en Amazon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHIVO -->
+    <section class="section" id="archivo">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">📁</span>
+            <h2 class="section-title">Archivo de boletines</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-body">
+            <h3 class="subsection-title">Abril 2026</h3>
+            <p><strong>→ Boletín nº 2</strong> — Jueves 9 de abril de 2026 (actual)</p>
+            <p><a href="boletin-001.html" style="color:var(--color-accent);text-decoration:none;font-weight:500;">Boletín nº 1</a> — Miércoles 8 de abril de 2026 (inaugural)</p>
+            <p style="color: var(--color-text-light); font-size: 0.88rem; margin-top: 1rem;">Los boletines anteriores irán apareciendo aquí conforme se publiquen, agrupados por mes.</p>
+        </div>
+    </section>
+
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+    <div class="footer-disclaimer">
+        <strong>Aviso legal:</strong> El autor de este boletín no es meteorólogo ni profesional de la nivología. Este contenido es una síntesis divulgativa elaborada a partir de fuentes de información públicas de terceros (AEMET, Météo-France, 3000 Ibones, A Lurte, entre otras), citadas explícitamente en cada sección. La información aquí recogida puede contener errores o imprecisiones y no sustituye en ningún caso a los boletines oficiales. El autor no se hace responsable de las decisiones tomadas en base a este contenido. Consulta siempre las fuentes oficiales y valora las condiciones sobre el terreno antes de realizar cualquier actividad en montaña.
+    </div>
+    <div class="footer-credits">
+        La Meteo del Pirineo Aragonés · Un proyecto de Ricardo Forcano<br>
+        Fuentes: AEMET OpenData · Open-Meteo · 3000 Ibones · A Lurte · Météo-France Montagne<br>
+        <span style="font-size:0.75rem;color:#8a9bb0;">Visitas: <span id="gc-counter"></span></span>
+    </div>
+</footer>
+
+<script>
+    function toggleSection(header) {
+        header.parentElement.classList.toggle('collapsed');
+    }
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const navHeight = document.querySelector('.section-nav').offsetHeight;
+                const y = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 10;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+<!-- GoatCounter analytics -->
+<script data-goatcounter="https://meteopirineo.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<script>
+    // Sumar visitas de la ruta antigua (/meteo-pirineo-aragones/) y la nueva (/)
+    var total = 0, loaded = 0;
+    function updateCounter() {
+        loaded++;
+        if (loaded === 2) {
+            var el = document.getElementById('gc-counter');
+            if (el && total > 0) el.textContent = total.toLocaleString('es-ES');
+        }
+    }
+    function fetchCount(path) {
+        var r = new XMLHttpRequest();
+        r.addEventListener('load', function() {
+            if (this.status === 200) {
+                var d = JSON.parse(this.responseText);
+                if (d.count) total += parseInt(String(d.count).replace(/[.,\s]/g, ''));
+            }
+            updateCounter();
+        });
+        r.addEventListener('error', updateCounter);
+        r.open('GET', 'https://meteopirineo.goatcounter.com/counter/' + path + '.json');
+        r.send();
+    }
+    fetchCount('%2Fmeteo-pirineo-aragones%2F');
+    fetchCount('%2F');
+</script>
+
+</body>
+</html>
