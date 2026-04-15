@@ -1110,74 +1110,40 @@
             <h3 class="subsection-title">Imágenes del manto nival en directo</h3>
             <div class="webcam-box">
                 <img id="webcam-rotating"
-                     src="https://camareando.com/var/images/ordesa-ascmonteperdido/last.jpg"
-                     alt="Webcam Monte Perdido desde Ordesa"
+                     src="https://camareando.com/var/images/ordesa-monteperdido/last.jpg"
+                     alt="Webcam Macizo de Monte Perdido"
                      onerror="this.style.opacity='0.15';"
                      style="display:block;width:100%;">
                 <div class="webcam-caption">
-                    📷 <span id="webcam-caption-text">Monte Perdido (Ordesa)</span> ·
-                    <a id="webcam-link" href="https://camareando.com/webcam/ordesa-ascmonteperdido" target="_blank" rel="noopener">camareando.com ↗</a>
+                    📷 <span id="webcam-caption-text">Macizo de Monte Perdido</span> ·
+                    <a id="webcam-link" href="https://camareando.com/webcam/ordesa-monteperdido" target="_blank" rel="noopener">camareando.com ↗</a>
                 </div>
             </div>
             <script>
             (function() {
-                var BASE = 'https://backend.skimo.cat/';
                 var CAMS = [
-                    { name: 'Refugio de Respumoso',    sid: 'refu-respumoso',        link: 'https://skimo.cat/webcams-pirineu/refu-respumoso/',        src: 's' },
-                    { name: 'Refugio de Bachimaña',    sid: 'refu-bachimana-ibones', link: 'https://skimo.cat/webcams-pirineu/refu-bachimana-ibones/', src: 's' },
-                    { name: 'Monte Perdido (Ordesa)',   url: 'https://camareando.com/var/images/ordesa-ascmonteperdido/last.jpg', link: 'https://camareando.com/webcam/ordesa-ascmonteperdido', src: 'c' },
-                    { name: 'Refugio de Estós',        sid: 'refugio-estos-valle',   link: 'https://skimo.cat/webcams-pirineu/refugio-estos-valle/',   src: 's' },
-                    { name: 'Aneto · La Renclusa',     url: 'https://camareando.com/var/images/benasque-aneto/last.jpg',        link: 'https://camareando.com/webcam/benasque-aneto',        src: 'c' },
-                    { name: 'Cap de Llauset',          sid: 'refu-cap-de-llauset',   link: 'https://skimo.cat/webcams-pirineu/refu-cap-de-llauset/',   src: 's' }
+                    { name: 'Macizo de Monte Perdido',          url: 'https://camareando.com/var/images/ordesa-monteperdido/last.jpg', link: 'https://camareando.com/webcam/ordesa-monteperdido' },
+                    { name: 'Refugio de Viadós (1.726 m)',      url: 'https://camareando.com/var/images/chistau-viados/last.jpg',      link: 'https://camareando.com/webcam/chistau-viados' },
+                    { name: 'Refugio Ángel Orús (2.150 m)',     url: 'https://camareando.com/var/images/benasque-posets/last.jpg',     link: 'https://camareando.com/webcam/benasque-posets' },
+                    { name: 'Refugio de Estós (1.890 m)',       url: 'https://camareando.com/var/images/benasque-estos/last.jpg',      link: 'https://camareando.com/webcam/benasque-estos' },
+                    { name: 'Refugio de La Renclusa (2.138 m)', url: 'https://camareando.com/var/images/benasque-aneto/last.jpg',      link: 'https://camareando.com/webcam/benasque-aneto' }
                 ];
-                var list = [], idx = 0, timer = null;
+                var idx = 0;
                 var imgEl = document.getElementById('webcam-rotating');
                 var capEl = document.getElementById('webcam-caption-text');
                 var lnkEl = document.getElementById('webcam-link');
 
                 function show(i) {
-                    var wc = list[i % list.length];
+                    var wc = CAMS[i % CAMS.length];
                     imgEl.src = wc.url + '?_=' + Date.now();
                     imgEl.alt = wc.name;
                     imgEl.style.opacity = '1';
                     capEl.textContent = wc.name;
                     lnkEl.href = wc.link;
-                    lnkEl.textContent = wc.src === 's' ? 'skimo.cat ↗' : 'camareando.com ↗';
                 }
 
-                function startRotation() {
-                    show(0);
-                    if (timer) clearInterval(timer);
-                    timer = setInterval(function() { idx = (idx + 1) % list.length; show(idx); }, 4000);
-                }
-
-                function fallback() {
-                    list = CAMS.filter(function(w) { return w.src === 'c'; });
-                    if (list.length) startRotation();
-                }
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', BASE + 'img/data.json', true);
-                xhr.timeout = 60000;
-                xhr.onload = function() {
-                    try {
-                        var data = JSON.parse(xhr.responseText), urls = {};
-                        data.forEach(function(w) {
-                            if (w.name && w.imgs && w.imgs[0]) {
-                                urls[w.name] = BASE + w.imgs[0].path.replace(/^\//, '');
-                            }
-                        });
-                        list = CAMS.map(function(w) {
-                            if (w.src === 'c') return w;
-                            if (urls[w.sid]) return { name: w.name, url: urls[w.sid], link: w.link, src: w.src };
-                            return null;
-                        }).filter(Boolean);
-                        if (!list.length) fallback(); else startRotation();
-                    } catch(e) { fallback(); }
-                };
-                xhr.onerror = fallback;
-                xhr.ontimeout = fallback;
-                xhr.send();
+                show(0);
+                setInterval(function() { idx = (idx + 1) % CAMS.length; show(idx); }, 4000);
             })();
             </script>
 
