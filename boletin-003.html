@@ -836,7 +836,10 @@
 
 <!-- ===== HERO IMAGE ===== -->
 <div class="hero-image">
-    <img src="hero_pirineo.jpg" alt="Panorámica invernal del Pirineo Aragonés" onerror="this.parentElement.style.display='none'">
+    <picture>
+        <source srcset="hero_pirineo.webp" type="image/webp">
+        <img src="hero_pirineo.jpg" alt="Panorámica invernal del Pirineo Aragonés" width="2000" height="1236" fetchpriority="high" onerror="this.parentElement.parentElement.style.display='none'">
+    </picture>
     <span class="photo-credit">Foto: Ricardo Forcano</span>
 </div>
 
