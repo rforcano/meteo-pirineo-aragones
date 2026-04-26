@@ -5,6 +5,9 @@
     <meta name="google-site-verification" content="4a3UpxXaO70fM8Q3pgg5ueE8wn0Gku_9UljG2SUZ6GQ" />
     <link rel="alternate" hreflang="es" href="https://meteopirineo.es/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#1e4e8c">
+    <meta name="format-detection" content="telephone=no">
     <title>La Meteo del Pirineo Aragonés — Previsión del tiempo, nieve y riesgo de aludes</title>
     <meta name="description" content="Boletín meteorológico y nivológico del Pirineo Aragonés: previsión del tiempo, estado de la nieve, riesgo de aludes y rutas de esquí de montaña. Actualizado lunes y jueves en meteopirineo.es.">
     <meta name="author" content="La Meteo del Pirineo Aragonés">
@@ -16,6 +19,10 @@
     <meta property="og:description" content="Boletín meteorológico y nivológico del Pirineo Aragonés: previsión del tiempo, estado de la nieve, riesgo de aludes y rutas de esquí de montaña. Actualizado lunes y jueves en meteopirineo.es.">
     <meta property="og:url" content="https://meteopirineo.es/">
     <meta property="og:image" content="https://meteopirineo.es/hero_pirineo.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="2000">
+    <meta property="og:image:height" content="1236">
+    <meta property="og:image:alt" content="Panorámica invernal del Pirineo Aragonés">
     <meta property="og:locale" content="es_ES">
     <meta property="og:site_name" content="La Meteo del Pirineo Aragonés">
 
@@ -28,11 +35,13 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
 
+    <link rel="preload" as="image" href="/hero_pirineo.avif" type="image/avif" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://camareando.com">
     <link rel="dns-prefetch" href="https://meteopirineo.goatcounter.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap"></noscript>
     <style>
         :root {
             --color-bg: #f8fafb;
@@ -219,11 +228,36 @@
         "publisher": { "@type": "Organization", "name": "La Meteo del Pirineo Aragonés", "url": "https://meteopirineo.es/" }
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://meteopirineo.es/" },
+            { "@type": "ListItem", "position": 2, "name": "Boletines", "item": "https://meteopirineo.es/#archivo" }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Archivo de boletines de La Meteo del Pirineo Aragonés",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "url": "https://meteopirineo.es/boletin-005.html", "name": "Boletín nº 5" },
+            { "@type": "ListItem", "position": 2, "url": "https://meteopirineo.es/boletin-004.html", "name": "Boletín nº 4" },
+            { "@type": "ListItem", "position": 3, "url": "https://meteopirineo.es/boletin-003.html", "name": "Boletín nº 3" },
+            { "@type": "ListItem", "position": 4, "url": "https://meteopirineo.es/boletin-002.html", "name": "Boletín nº 2" },
+            { "@type": "ListItem", "position": 5, "url": "https://meteopirineo.es/boletin-001.html", "name": "Boletín nº 1" }
+        ]
+    }
+    </script>
 </head>
 <body>
 
 <div class="hero-image">
     <picture>
+        <source srcset="hero_pirineo.avif" type="image/avif">
         <source srcset="hero_pirineo.webp" type="image/webp">
         <img src="hero_pirineo.jpg" alt="Panorámica invernal del Pirineo Aragonés" width="2000" height="1236" fetchpriority="high" onerror="this.parentElement.parentElement.style.display='none'">
     </picture>
